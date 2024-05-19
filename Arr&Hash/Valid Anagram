@@ -1,0 +1,43 @@
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        if(s.length() != t.length()){
+            return false;
+        }
+        //actually calculating anagram
+        int[] count = new int[26]; // alphabet of 26 lowercase char
+        countLetters(s, count, 0);
+        return compareStr(t, count, 0);
+    }
+
+        //counts total letters in s
+        public void countLetters(String str, int[] count, int index)
+        {
+            if(index == str.length()) //recursive case
+            {
+                return;
+            }
+            else
+            {
+                count[str.charAt(index) - 'a']++;
+                countLetters(str, count, index + 1);
+            }
+        }
+
+        public boolean compareStr(String t, int[] count, int index)
+        {
+            if(index == t.length()) //base case
+            {
+                for(int c : count)
+                {
+                    if(c != 0) { return false;}
+                }
+                return true;
+            }
+            else
+            {
+                count[t.charAt(index) - 'a']--;
+                return compareStr(t, count, index + 1);
+            }
+        }
+
+}
